@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'home',
-    'rest_framework'
+    'rest_framework',
+    'tailwind',
+    'theme',
 ]
+
+TAILWIND_APP_NAME = 'theme'  # El nombre de la app de Tailwind
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,8 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "theme/static/",  # Asegúrate de que esté apuntando a la carpeta correcta
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
