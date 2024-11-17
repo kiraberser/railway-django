@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tailwind',
     'theme',
+    'django_browser_reload'
 ]
 
 TAILWIND_APP_NAME = 'theme'  # El nombre de la app de Tailwind
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -116,6 +118,10 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 USE_TZ = True
 
 
@@ -124,11 +130,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "theme/static/",  # Asegúrate de que esté apuntando a la carpeta correcta
+    BASE_DIR / "theme/static_src/",  # Asegúrate de que esté apuntando a la carpeta correcta
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 

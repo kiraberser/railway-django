@@ -1,19 +1,30 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Blog</title>
+    <title>Crear Nuevo Blog</title>
+    {% tailwind_css %}
 </head>
-<body>
-    <h1>Crear Nuevo Post</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Crear Nuevo Blog</button>
-    </form>
+<body class="bg-blue-50 text-gray-900 font-sans">
+    <div class="container mx-auto p-6">
+        <h1 class="text-4xl font-bold text-center text-blue-600 mb-6">Crear Nuevo Post</h1>
+        
+        <form method="post" class="bg-white p-8 rounded-lg shadow-lg">
+            {% csrf_token %}
+            <div class="space-y-4">
+                <!-- Renderiza los campos del formulario -->
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-full hover:bg-blue-700 transition mt-6">
+                Crear Nuevo Blog
+            </button>
+        </form>
 
-    <a href="{% url 'list-blog' %}">Ver Blogs</a>
-
+        <div class="text-center mt-6">
+            <a href="{% url 'list-blog' %}" class="text-blue-600 hover:text-blue-800 transition">Ver Blogs</a>
+        </div>
+    </div>
 </body>
 </html>
