@@ -1,6 +1,4 @@
 {% load static tailwind_tags %}
-<!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     {% tailwind_css %}
@@ -11,12 +9,15 @@
         <h1 class="text-4xl font-bold text-center text-blue-600 mb-6">Lista de Blogs</h1>
         <div class="text-center mb-6">
             <a href="{% url 'create-blog' %}" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Crear Post</a>
+            <a href="{% url 'home' %}" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">Home</a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for blog in blogs %}
             <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition">
                 <h2 class="text-xl font-semibold text-blue-600 mb-2">{{ blog.title }}</h2>
                 <p class="text-gray-700 mb-4">{{ blog.content }}</p>
+                <p>{{ blog.time}}</p>
+                <p>#{{blog.slug}}</p>
             </div>
             {% endfor %}
         </div>

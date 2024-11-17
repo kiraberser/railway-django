@@ -7,8 +7,16 @@
     <title>Home</title>
     {% tailwind_css %}
 </head>
-<body>
-    <a>Home</a>
-    <a href="{% url 'blog-list' %}">Blog</a>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col justify-center items-center">
+    <!-- Contenedor principal -->
+    <div class="text-center space-y-4">
+        <!-- Links de navegación -->
+        <a href="#" class="text-blue-500 text-lg font-semibold hover:text-blue-700 transition">
+            Home
+        </a>
+        <a href="{% url 'list-blog' %}" class="text-blue-500 text-lg font-semibold hover:text-blue-700 transition">
+            Blog
+        </a>
+    </div>
 </body>
 </html>
