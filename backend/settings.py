@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -89,14 +90,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('PGDATABASE'),
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT'),
-    }
+    'default': dj_database_url.config(default=os.getenv('URL_DATABASE'))
 }
 
 
@@ -169,4 +163,8 @@ STORAGES = {
     },
 }
 
-CSRF_TRUSTED_ORIGINS = 'https://railway-django-production-e532.up.railway.app/'
+CSRF_TRUSTED_ORIGINS = [
+    'http://railway-django-production-e532.up.railway.app',
+    'https://railway-django-production-e532.up.railway.app',  # Si usas HTTPS, también agrégalo
+]
+

@@ -23,6 +23,7 @@ packaging==24.2
 psycopg==3.2.3
 psycopg-binary==3.2.3
 psycopg-pool==3.2.4
+psycopg2==2.9.10
 psycopg2-binary==2.9.10
 Pygments==2.18.0
 python-dateutil==2.9.0.post0
