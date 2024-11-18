@@ -17,7 +17,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["railway-django-production-e532.up.railway.app", "localhost"]
+ALLOWED_HOSTS = [
+    "railway-django-production-e532.up.railway.app",  # Host del proyecto en producción
+    "localhost",
+    "postgres.railway.internal"  # Host interno para la base de datos
+]
+
 
 # Application definition
 
@@ -132,13 +137,14 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Secure settings for production
-if not DEBUG:
+if DEBUG == False:
     SECURE_HSTS_SECONDS = 31536000  # 1 año
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Si quieres incluir subdominios
     SECURE_HSTS_PRELOAD = True  # Para pre-cargar HSTS
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
 
 
 # NPM path (adjust for your environment)
