@@ -94,7 +94,7 @@ if not DEBUG:
     }
 else:
     DATABASES = {
-        'default': dj_database_url.config(default='postgresql://postgres:hpszXddqBQbMzokYzkDgULxIptnlNlHk@autorack.proxy.rlwy.net:38800/railway')
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
 
 # Password validation
