@@ -15,13 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    "railway-django-production-e532.up.railway.app",  # Host del proyecto en producción
-    "localhost",
-    "postgres.railway.internal"  # Host interno para la base de datos
-]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -33,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nostatic',
+    "whitenoise.runserver_nostatic",
     'blog',
     'home',
     'rest_framework',
@@ -80,11 +76,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('URL_DATABASE'))
-}
-
-
+if DEBUG:
+    DATABASES = {
+        'default': dj_database_url.config(default=os.getenv('URL_DATABASE'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv("PGDATABASE"),
+            'USER': os.getenv("PGUSER"),
+            'PASSWORD': os.getenv("PGPASSWORD"),
+            'HOST': os.getenv("PGHOST"),
+            'PORT': os.getenv("PGPORT"),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -124,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Esto ya parece correcto.
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'theme', 'static'),
