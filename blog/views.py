@@ -31,8 +31,6 @@ def render_home(request):
     data = response.json()
     if response.status_code != 200:
         return render(request, 'error.html', {'message': 'No se pudieron obtener los blogs'})
-
-    data = response.json()  # Obtén los datos JSON
     return render(request, 'blog.html', {'blogs': data})  # Pasa los datos a la plantilla
 
 def create_blog(request):

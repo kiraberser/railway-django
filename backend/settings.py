@@ -76,6 +76,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+print(os.getenv('URL_DATABASE'))
+print(os.getenv('DEBUG'))
 if not DEBUG:
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('URL_DATABASE'))
@@ -133,9 +135,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Esto ya parece correcto.
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'theme', 'static'),
-    os.path.join(BASE_DIR, 'theme', 'static_src'),
+    os.path.join(BASE_DIR, 'theme/static'),
+    os.path.join(BASE_DIR, 'theme/static_src'),
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -154,13 +158,6 @@ if not DEBUG:
 
 # NPM path (adjust for your environment)
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-
-# Static files storage backend
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
