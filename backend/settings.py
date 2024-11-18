@@ -76,11 +76,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-print(os.getenv('URL_DATABASE'))
-print(os.getenv('DEBUG'))
-import dj_database_url
-import os
-
 if not DEBUG:
     DATABASES = {
         'default': {
