@@ -8,6 +8,8 @@ from .forms import BlogForm
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 ENVIRONMENT = os.getenv('DEBUG', 'True').lower() == 'true'
 
 # Configura BASE_URL basado en el entorno
