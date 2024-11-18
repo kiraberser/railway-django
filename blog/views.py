@@ -10,12 +10,12 @@ import os
 
 load_dotenv()
 
+# Determina el entorno
 ENVIRONMENT = os.getenv('DEBUG', 'True').lower() == 'true'
 
 # Configura BASE_URL basado en el entorno
 BASE_URL = "http://localhost:8000" if ENVIRONMENT else "https://railway-django-production-e532.up.railway.app"
 API_ENDPOINT = "/api/blog/"
-
 
 class BlogView(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
@@ -26,21 +26,25 @@ class BlogView(viewsets.ModelViewSet):
         serializer = BlogSerializer(queryset, many=True)
         return Response(serializer.data)
 
-# Vista para renderizar el HTML (corrige el uso de requests)
+# Vista para renderizar el HTML
 def render_home(request):
-    api_url = f'{BASE_URL}{API_ENDPOINT}'  # Asegúrate de que la URL es correcta
-    response = requests.get(api_url)
-    data = response.json()
-    if response.status_code != 200:
-        return render(request, 'error.html', {'message': 'No se pudieron obtener los blogs'})
-    return render(request, 'blog.html', {'blogs': data})  # Pasa los datos a la plantilla
+    try:
+        api_url = f'{BASE_URL}{API_ENDPOINT}'  # Construye la URL completa
+        response = requests.get(api_url, timeout=10)  # Establece un tiempo de espera
+        response.raise_for_status()  # Lanza una excepción si el estado no es 2xx
+        data = response.json()  # Obtén los datos JSON
+        return render(request, 'blog.html', {'blogs': data})  # Pasa los datos a la plantilla
+    except requests.exceptions.RequestException as e:
+        # Manejo de errores en solicitudes
+        return render(request, 'error.html', {'message': f'Error al obtener blogs: {e}'})
 
+# Vista para crear un blog
 def create_blog(request):
     if request.method == 'POST':
         form = BlogForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('list-blog')
+            return redirect('list-blog')  # Cambia 'list-blog' según el nombre de tu URL
     else:
         form = BlogForm()
 
