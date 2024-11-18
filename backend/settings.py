@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'blog',
     'home',
     'rest_framework',
@@ -160,4 +161,11 @@ if DEBUG == False:
 
 
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
