@@ -8,12 +8,12 @@ from .forms import BlogForm
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-# Vista para la API (correcta, no necesitas cambiarla)
-ENVIRONMENT = os.getenv('DEBUG')
+ENVIRONMENT = os.getenv('DEBUG', 'True').lower() == 'true'
 
+# Configura BASE_URL basado en el entorno
 BASE_URL = "http://localhost:8000" if ENVIRONMENT else "https://railway-django-production-e532.up.railway.app"
 API_ENDPOINT = "/api/blog/"
+
 
 class BlogView(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
