@@ -5,7 +5,15 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from .serializers import BlogSerializer
 from .forms import BlogForm
+from dotenv import load_dotenv
+
+load_dotenv()
 # Vista para la API (correcta, no necesitas cambiarla)
+ENVIRONMENT = False
+
+BASE_URL = "http://localhost:8000" if ENVIRONMENT else "https://railway-django-production-e532.up.railway.app"
+API_ENDPOINT = "/api/blog/"
+
 class BlogView(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer 
@@ -17,7 +25,7 @@ class BlogView(viewsets.ModelViewSet):
 
 # Vista para renderizar el HTML (corrige el uso de requests)
 def render_home(request):
-    api_url = 'http://localhost:8000/api/blog/'  # Asegúrate de que la URL es correcta
+    api_url = f'{BASE_URL}{API_ENDPOINT}'  # Asegúrate de que la URL es correcta
     response = requests.get(api_url)
 
     if response.status_code != 200:
