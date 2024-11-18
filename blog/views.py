@@ -6,10 +6,11 @@ from rest_framework import viewsets
 from .serializers import BlogSerializer
 from .forms import BlogForm
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 # Vista para la API (correcta, no necesitas cambiarla)
-ENVIRONMENT = False
+ENVIRONMENT = os.getenv('DEBUG')
 
 BASE_URL = "http://localhost:8000" if ENVIRONMENT else "https://railway-django-production-e532.up.railway.app"
 API_ENDPOINT = "/api/blog/"
