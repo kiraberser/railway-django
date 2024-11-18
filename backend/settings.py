@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'tailwind',
     'theme',
-    'django_browser_reload'
 ]
 
 TAILWIND_APP_NAME = 'theme'  # El nombre de la app de Tailwind
