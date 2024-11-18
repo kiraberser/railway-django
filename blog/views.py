@@ -26,6 +26,7 @@ class BlogView(viewsets.ModelViewSet):
 # Vista para renderizar el HTML (corrige el uso de requests)
 def render_home(request):
     api_url = f'{BASE_URL}{API_ENDPOINT}'  # Asegúrate de que la URL es correcta
+    print(api_url)
     response = requests.get(api_url)
 
     if response.status_code != 200:
