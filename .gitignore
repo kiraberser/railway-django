@@ -6,3 +6,5 @@ package.json
 postcss.config.js
 tailwind.config.js
 node_modules/
+.env
+staticfiles
