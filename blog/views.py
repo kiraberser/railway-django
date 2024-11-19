@@ -26,26 +26,27 @@ class BlogView(viewsets.ModelViewSet):
 
 # Vista para renderizar el HTML
 def render_home(request):
+    print(requests.get(BASE_URL + API_ENDPOINT).json())
     try:
         api_url = f'{BASE_URL}{API_ENDPOINT}'  # Construye la URL completa
         # Realiza la solicitud GET y verifica el estado
-        response = requests.get(api_url, timeout=10)
+        headers = {'Accept': 'application/json'}
+        response = requests.get(api_url, headers=headers, timeout=10)
         
         # Verificar si la respuesta fue exitosa (código 200)
         if response.status_code != 200:
-            logger.error(f"Error al obtener los blogs. Código de estado: {response.status_code}")
             return render(request, 'error.html', {'message': f'Error al obtener blogs. Código: {response.status_code}'})
-        
-        # Intenta obtener los datos JSON
         data = response.json()
+        # Intenta obtener los datos JSON
+        print(response)
         return render(request, 'blog.html', {'blogs': data})  # Pasa los datos a la plantilla
-    
     except requests.exceptions.RequestException as e:
         # Manejo de errores en solicitudes
         return render(request, 'error.html', {'message': f'Error al obtener blogs: {e}'})
     except ValueError:
         # Error si no se puede parsear JSON
         return render(request, 'error.html', {'message': 'Error al procesar la respuesta del servidor.'})
+
 # Vista para crear un blog
 def create_blog(request):
     if request.method == 'POST':
