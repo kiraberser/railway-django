@@ -28,12 +28,12 @@ class BlogView(viewsets.ModelViewSet):
 def render_home(request):
     try:
         api_url = f'{BASE_URL}{API_ENDPOINT}'  # Construye la URL completa
-        
         # Realiza la solicitud GET y verifica el estado
-        response = requests.get(api_url)
+        response = requests.get(api_url, timeout=10)
         
         # Verificar si la respuesta fue exitosa (código 200)
         if response.status_code != 200:
+            logger.error(f"Error al obtener los blogs. Código de estado: {response.status_code}")
             return render(request, 'error.html', {'message': f'Error al obtener blogs. Código: {response.status_code}'})
         
         # Intenta obtener los datos JSON

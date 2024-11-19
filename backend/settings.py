@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tailwind',
     'theme',
+    'corsheaders'
 ]
 
 TAILWIND_APP_NAME = 'theme'  # El nombre de la app de Tailwind
@@ -43,11 +44,13 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -159,4 +162,9 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 CSRF_TRUSTED_ORIGINS = [
     'http://railway-django-production-e532.up.railway.app',
     'https://railway-django-production-e532.up.railway.app',  # Si usas HTTPS, también agrégalo
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://railway-django-production-e532.up.railway.app',
+    'https://railway-django-production-e532.up.railway.app',
 ]
