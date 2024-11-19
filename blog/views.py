@@ -14,9 +14,8 @@ load_dotenv()
 ENVIRONMENT = os.getenv('DEBUG', 'True').lower() == 'true'
 
 # Configura BASE_URL basado en el entorno
-BASE_URL = "http://localhost:8000" if ENVIRONMENT else "https://railway-django-production-e532.up.railway.app"
+BASE_URL = "https://railway-django-production-e532.up.railway.app"
 API_ENDPOINT = "/api/blog/"
-
 class BlogView(viewsets.ModelViewSet):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer 
@@ -30,8 +29,8 @@ class BlogView(viewsets.ModelViewSet):
 def render_home(request):
     try:
         api_url = f'{BASE_URL}{API_ENDPOINT}'  # Construye la URL completa
-        response = requests.get(api_url, timeout=10)  # Establece un tiempo de espera
-        response.raise_for_status()  # Lanza una excepción si el estado no es 2xx
+        
+        response = requests.get(api_url)  # Establece un tiempo de espera
         data = response.json()  # Obtén los datos JSON
         return render(request, 'blog.html', {'blogs': data})  # Pasa los datos a la plantilla
     except requests.exceptions.RequestException as e:
